@@ -4,9 +4,8 @@ import { Alert, Button, StyleSheet, Text, TextInput, View } from 'react-native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { RootStackParamList } from '../App'
 import { useState } from 'react'
-import { addDoc, collection, getDocs } from 'firebase/firestore'
-import { firebaseDb } from '../config'
 import uuid from 'react-native-uuid'
+import firestore from '@react-native-firebase/firestore'
 
 export default function FirebaseDemo() {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>()
@@ -17,11 +16,13 @@ export default function FirebaseDemo() {
 
   const savePerson = async () => {
     try {
-      await addDoc(collection(firebaseDb, 'users'), {
+      const users = firestore().collection('users')
+      await users.add({
         id: uuid.v4(),
         name,
-        age,
+        age
       })
+
       Alert.alert(`Saved person with name = ${name} and age = ${age}`)
     } catch (err: any) {
       Alert.alert('Error while saving person data: ', err.toString())
@@ -31,8 +32,8 @@ export default function FirebaseDemo() {
   const showPersons = async () => {
     try {
       const retrievedPersons: any[] = []
-      const personsRef = await getDocs(collection(firebaseDb, 'users'))
-      personsRef.forEach(person => {
+      const users = await firestore().collection('users').get()
+      users.forEach(person => {
         retrievedPersons.push(JSON.stringify(person.data(), null, 2))
       })
 

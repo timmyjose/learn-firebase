@@ -1,8 +1,11 @@
 import { FIREBASE_CONFIG } from './constants'
-import { initializeApp } from 'firebase/app'
-import { initializeFirestore, persistentLocalCache } from 'firebase/firestore'
+import { getFirestore } from '@react-native-firebase/firestore'
+import { initializeApp } from '@react-native-firebase/app'
 
 const firebaseConfig = JSON.parse(FIREBASE_CONFIG)
-export const firebaseApp = initializeApp(firebaseConfig)
 
-export const firebaseDb = initializeFirestore(firebaseApp, {localCache: persistentLocalCache({})})
+initializeApp(firebaseConfig, {
+  persistence: true
+})
+
+export const firestore = getFirestore()

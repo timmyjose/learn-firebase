@@ -10,7 +10,6 @@ export type RootStackParamList = {
   FirebaseDemo: {} | undefined
 }
 
-
 export default function App() {
   return (
     <NavigationContainer>
