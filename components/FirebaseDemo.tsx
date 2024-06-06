@@ -1,9 +1,10 @@
+import React from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { Alert, Button, StyleSheet, Text, TextInput, View } from 'react-native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { RootStackParamList } from '../App'
 import { useState } from 'react'
-import { addDoc, collection, getDocs } from 'firebase/firestore/lite'
+import { addDoc, collection, getDocs } from 'firebase/firestore'
 import { firebaseDb } from '../config'
 import uuid from 'react-native-uuid'
 
